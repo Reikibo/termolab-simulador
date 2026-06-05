@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TermoLab | Laboratorio de Termodinamica</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar" aria-label="Navegacion principal">
+    <a class="brand" href="#inicio" aria-label="Inicio TermoLab">
+      <span class="brand-mark">TL</span>
+      <span>TermoLab</span>
+    </a>
+    <nav class="nav-links" aria-label="Secciones">
+      <a href="#gas">Gas ideal</a>
+      <a href="#calor">Calor</a>
+      <a href="#procesos">Procesos</a>
+      <a href="#evaluacion">Evaluacion</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <img class="hero-image" src="assets/thermo-lab-hero.png" alt="Laboratorio moderno de termodinamica con sensores, camara de calor y manometros.">
+      <div class="hero-shade"></div>
+      <div class="hero-content">
+        <p class="eyebrow">Laboratorio virtual de fisica</p>
+        <h1>Termodinamica</h1>
+        <p class="hero-copy">
+          Experimenta con temperatura, calor, trabajo, presion y energia interna como si estuvieras frente a un banco de pruebas.
+        </p>
+        <div class="hero-actions" aria-label="Accesos rapidos">
+          <a class="primary-action" href="#gas">Abrir simulador</a>
+          <a class="secondary-action" href="#conceptos">Ver conceptos</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="lab-band" id="conceptos">
+      <div class="section-heading">
+        <p class="eyebrow">Mapa del tema</p>
+        <h2>Lo esencial para entender la termodinamica</h2>
+      </div>
+      <div class="concept-grid">
+        <article class="concept-card">
+          <span class="concept-icon">T</span>
+          <h3>Temperatura</h3>
+          <p>Mide que tan intensa es la agitacion promedio de las particulas. En los calculos del laboratorio se usa Kelvin.</p>
+          <strong>0 °C = 273.15 K</strong>
+        </article>
+        <article class="concept-card">
+          <span class="concept-icon">Q</span>
+          <h3>Calor</h3>
+          <p>Energia que se transfiere por diferencia de temperatura. Si entra al sistema suele tomarse como positivo.</p>
+          <strong>Q = m c DeltaT</strong>
+        </article>
+        <article class="concept-card">
+          <span class="concept-icon">W</span>
+          <h3>Trabajo</h3>
+          <p>Energia transferida cuando una fuerza desplaza algo. En gases aparece al expandirse o comprimirse.</p>
+          <strong>W = P DeltaV</strong>
+        </article>
+        <article class="concept-card">
+          <span class="concept-icon">U</span>
+          <h3>Energia interna</h3>
+          <p>Energia microscopica almacenada en el sistema. Cambia cuando el sistema recibe calor o realiza trabajo.</p>
+          <strong>DeltaU = Q - W</strong>
+        </article>
+      </div>
+    </section>
+
+    <section class="workbench" id="gas">
+      <div class="section-heading">
+        <p class="eyebrow">Estacion 01</p>
+        <h2>Gas ideal: presion, volumen y temperatura</h2>
+        <p>La ecuacion PV = nRT conecta el estado de un gas. Cambia los controles y observa como responde el sistema.</p>
+      </div>
+
+      <div class="sim-layout">
+        <article class="sim-panel">
+          <div class="panel-title">
+            <h3>Camara de gas</h3>
+            <span id="pressureBadge" class="badge">-- kPa</span>
+          </div>
+          <canvas id="gasCanvas" width="720" height="430" aria-label="Simulacion de particulas dentro de una camara de gas"></canvas>
+          <div class="readout-grid">
+            <div>
+              <span>Presion</span>
+              <strong id="pressureReadout">-- kPa</strong>
+            </div>
+            <div>
+              <span>Energia cinetica</span>
+              <strong id="kineticReadout">--</strong>
+            </div>
+            <div>
+              <span>Estado observado</span>
+              <strong id="stateReadout">--</strong>
+            </div>
+          </div>
+        </article>
+
+        <aside class="control-panel" aria-label="Controles del gas ideal">
+          <label>
+            Temperatura: <output id="tempOutput">300 K</output>
+            <input id="temperature" type="range" min="220" max="650" value="300">
+          </label>
+          <label>
+            Volumen: <output id="volumeOutput">10.0 L</output>
+            <input id="volume" type="range" min="4" max="24" value="10" step="0.1">
+          </label>
+          <label>
+            Moles: <output id="molesOutput">1.00 mol</output>
+            <input id="moles" type="range" min="0.2" max="3" value="1" step="0.05">
+          </label>
+          <div class="formula-box">
+            <span>PV = nRT</span>
+            <p id="gasEquation">P = (1.00 mol)(8.314)(300 K) / 0.010 m3</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="lab-band" id="calor">
+      <div class="section-heading">
+        <p class="eyebrow">Estacion 02</p>
+        <h2>Calorimetria: energia para cambiar temperatura</h2>
+        <p>El calor requerido depende de la masa, del material y del cambio de temperatura.</p>
+      </div>
+
+      <div class="calor-layout">
+        <article class="control-panel">
+          <label>
+            Material
+            <select id="material">
+              <option value="4186">Agua - 4186 J/kg°C</option>
+              <option value="900">Aluminio - 900 J/kg°C</option>
+              <option value="385">Cobre - 385 J/kg°C</option>
+              <option value="450">Hierro - 450 J/kg°C</option>
+            </select>
+          </label>
+          <label>
+            Masa: <output id="massOutput">0.50 kg</output>
+            <input id="mass" type="range" min="0.1" max="3" value="0.5" step="0.05">
+          </label>
+          <label>
+            Temperatura inicial: <output id="initialTempOutput">20 °C</output>
+            <input id="initialTemp" type="range" min="-10" max="80" value="20">
+          </label>
+          <label>
+            Temperatura final: <output id="finalTempOutput">80 °C</output>
+            <input id="finalTemp" type="range" min="-10" max="150" value="80">
+          </label>
+        </article>
+
+        <article class="calor-visual">
+          <div class="thermometer" aria-hidden="true">
+            <div id="thermoFill" class="thermo-fill"></div>
+          </div>
+          <div class="calor-result">
+            <span>Calor transferido</span>
+            <strong id="heatReadout">-- kJ</strong>
+            <p id="heatMeaning">--</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="workbench" id="procesos">
+      <div class="section-heading">
+        <p class="eyebrow">Estacion 03</p>
+        <h2>Procesos termodinamicos</h2>
+        <p>Cada proceso mantiene una magnitud constante o bloquea cierta transferencia de energia.</p>
+      </div>
+
+      <div class="process-layout">
+        <div class="process-tabs" role="tablist" aria-label="Tipos de proceso">
+          <button class="tab is-active" data-process="isotermico" type="button">Isotermico</button>
+          <button class="tab" data-process="isobarico" type="button">Isobarico</button>
+          <button class="tab" data-process="isocorico" type="button">Isocorico</button>
+          <button class="tab" data-process="adiabatico" type="button">Adiabatico</button>
+        </div>
+        <article class="process-card">
+          <div>
+            <h3 id="processTitle">Proceso isotermico</h3>
+            <p id="processDescription">--</p>
+            <dl class="process-facts">
+              <div>
+                <dt>Constante</dt>
+                <dd id="processConstant">--</dd>
+              </div>
+              <div>
+                <dt>Ejemplo</dt>
+                <dd id="processExample">--</dd>
+              </div>
+              <div>
+                <dt>Idea clave</dt>
+                <dd id="processKey">--</dd>
+              </div>
+            </dl>
+          </div>
+          <canvas id="processCanvas" width="640" height="400" aria-label="Grafica presion volumen de un proceso termodinamico"></canvas>
+        </article>
+      </div>
+    </section>
+
+    <section class="lab-band" id="evaluacion">
+      <div class="section-heading">
+        <p class="eyebrow">Bitacora</p>
+        <h2>Comprueba lo aprendido</h2>
+        <p>Relaciona los conceptos con situaciones reales y registra una conclusion breve del experimento.</p>
+      </div>
+
+      <div class="evaluation-layout">
+        <article class="quiz-panel">
+          <h3>Mini prueba</h3>
+          <div id="quizList" class="quiz-list"></div>
+          <button id="checkQuiz" class="primary-action" type="button">Revisar respuestas</button>
+          <p id="quizFeedback" class="quiz-feedback" aria-live="polite"></p>
+        </article>
+
+        <article class="notebook">
+          <h3>Conclusion del laboratorio</h3>
+          <textarea id="notebookText" rows="8" placeholder="Ejemplo: Al aumentar la temperatura del gas, sus particulas se mueven mas rapido y la presion sube si el volumen no cambia."></textarea>
+          <div class="notebook-actions">
+            <button id="saveNote" class="secondary-action" type="button">Guardar</button>
+            <button id="clearNote" class="ghost-action" type="button">Limpiar</button>
+          </div>
+          <p id="noteStatus" aria-live="polite"></p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>TermoLab: proyecto web educativo de fisica centrado en termodinamica.</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
